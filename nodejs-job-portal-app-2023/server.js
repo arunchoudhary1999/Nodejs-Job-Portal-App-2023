@@ -1,28 +1,38 @@
-// imports -----
+// Packages imports -----
 import express from "express";
-import dotenv from "dotenv"; // isko import kerne ke bad configration bhi kerna padta hai,
-// tabhi hm is .env mtlb environmental variable ka use ker payegay
+import dotenv from "dotenv"; 
 import colors from "colors";
-import connectDB from "./config/db.js";
+import cors from "cors";
+import morgan from "morgan";
 
-// DOT ENV config - configration hame starting me kuch is tarah se kerna hoga
+// Files imports -----
+import connectDB from "./config/db.js";
+import testRoutes from "./routes/testRoutes.js"
+
+// DOT ENV config -----
 dotenv.config();
 
-// Mongodb Connection
+// Mongodb Connection -----
 connectDB();
 
-// Rest Object
+// Rest Object -----
 const app = express();
 
-// Routes
-app.get("/", (req, res) => {
-    res.send("<h1>Welcome to Job Portal...</h1>")
-})
+// Middleware -----
+app.use(express.json());
 
-// Port
+// Cors Enable - cors ko enable ker legay yaha pe, simple hame cors ko call ker legay -----
+app.use(cors());
+// or morgan ko bhi simple cors ki tarah ker legay -----
+app.use(morgan("dev"))
+
+// Routes -----
+app.use('/api/v1/test', testRoutes);
+
+// Port -----
 const PORT = process.env.PORT || 8080; 
 
-// Listen
+// Listen -----
 app.listen(PORT, () => {
     console.log(`Node Server Running in ${process.env.DEV_MODE} Mode on Port no. ${PORT}`.bgBlue.white)
 })
