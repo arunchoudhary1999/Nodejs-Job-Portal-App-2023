@@ -1,10 +1,15 @@
 // imports -----
 import express from "express";
-import dotenv from "dotenv"; // isko import kerne ke bad configration bhi kerna padta hai, tabhi hm is .env mtlb environmental variable ka use ker payegay
+import dotenv from "dotenv"; // isko import kerne ke bad configration bhi kerna padta hai,
+// tabhi hm is .env mtlb environmental variable ka use ker payegay
 import colors from "colors";
+import connectDB from "./config/db.js";
 
 // DOT ENV config - configration hame starting me kuch is tarah se kerna hoga
 dotenv.config();
+
+// Mongodb Connection
+connectDB();
 
 // Rest Object
 const app = express();
